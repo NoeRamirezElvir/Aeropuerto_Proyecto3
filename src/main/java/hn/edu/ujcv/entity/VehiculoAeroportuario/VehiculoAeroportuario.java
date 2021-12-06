@@ -11,10 +11,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "vehiculoAeroportuario")
 public class VehiculoAeroportuario {
-    private int    codigo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long   id;
+    private String codigo;
     private String numeroPlaca;
     private String tipo;
     private String descripcion;
+    private String estado;
     private String tipoCombustible;
     private int    capacidad;
 }

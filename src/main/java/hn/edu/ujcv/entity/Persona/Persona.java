@@ -1,4 +1,5 @@
-package hn.edu.ujcv.entity.Usuario;
+package hn.edu.ujcv.entity.Persona;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +10,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "persona")
+public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String codigo;
-    private String contraseña;
+    private long dni;
+    private String nombre;
+    private int edad;
+    private String direccion;
+    private String genero;
+    private String tipo;
+
 }

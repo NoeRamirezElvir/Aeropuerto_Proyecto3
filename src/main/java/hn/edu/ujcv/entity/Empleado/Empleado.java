@@ -13,12 +13,15 @@ import java.util.Date;
 @Entity
 @Table(name = "empleado")
 public class Empleado {
-    private long DNI;
-    private int codigo;
-    private String nombre;
-    private int edad;
-    private Date fechaIngreso;
-    private String cargo;
-    private String direccion;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long   id;
+    private int    codigo;
     private String correoElectronico;
+    private String departamento;
+    private double sueldo;
+    private Date   fechaIngreso;
+    private String cargo;
+    private String horario;
+    private String nombre;
 }

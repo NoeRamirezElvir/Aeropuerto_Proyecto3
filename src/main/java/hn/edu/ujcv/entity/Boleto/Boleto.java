@@ -11,15 +11,16 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "boletos")
+@Table(name = "boleto")
 public class Boleto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long   Id;
-    private String nombreCliente;
-    private Date   fecha;
+    private long   id;
+    private String codigoFactura;
+    private String nombrePasajero;
+    private String vuelo;
     private String asiento;
-    private String horaPartida;
-    private String equipaje;
+    private String numeroPuertaEmbarque;
     private String clase;
+    private double total;
 }

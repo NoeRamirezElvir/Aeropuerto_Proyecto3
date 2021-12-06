@@ -14,11 +14,11 @@ import javax.persistence.*;
 public class Aeronave {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int    Id;
+    private long    id;
     private String modelo;
-    private String descripcion;
-    private String ruta;
-    private String tam;
+    private String fabricante;
+    private String aerolinea;
+    private int    tamaño;
     private int    capacidad;
     private String tipo;
 }
