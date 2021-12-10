@@ -16,7 +16,7 @@ public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long   id;
-    private int    codigo;
+    private String codigo;
     private String correoElectronico;
     private String departamento;
     private double sueldo;

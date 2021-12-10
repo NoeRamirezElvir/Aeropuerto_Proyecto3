@@ -1,10 +1,9 @@
-package hn.edu.ujcv.controller.AeronaveController;
+package hn.edu.ujcv.controller.EquipajeController;
 
-
-import hn.edu.ujcv.entity.Aeronave.Aeronave;
+import hn.edu.ujcv.entity.Equipaje.Equipaje;
 import hn.edu.ujcv.exceptions.BusinessException;
 import hn.edu.ujcv.exceptions.NotFoundException;
-import hn.edu.ujcv.service.AeronaveService.AeronaveService;
+import hn.edu.ujcv.service.EquipajeService.EquipajeService;
 import hn.edu.ujcv.utils.Constants;
 import hn.edu.ujcv.utils.RestApiError;
 import org.hibernate.mapping.Any;
@@ -17,28 +16,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/aeronaves")
-public class AeronaveController {
+@RequestMapping("/api/v1/equipajes")
+public class EquipajeController {
     @Autowired
-    private AeronaveService service;
+    private EquipajeService service;
 
-    @PostMapping("/addAeronave") //Post es Guardar
-    public ResponseEntity<Object> agregarAeronave(@RequestBody Aeronave aeronave){
+    @PostMapping("/addEquipaje") //Post es Guardar
+    public ResponseEntity<Object> agregarEquipaje(@RequestBody Equipaje equipaje){
         try{
-            service.saveAeronave(aeronave);
+            service.saveEquipaje(equipaje);
             HttpHeaders responseHeader = new HttpHeaders();
-            responseHeader.set("location", Constants.URL_BASE_AERONAVES + aeronave.getId());
-            return new ResponseEntity(aeronave,responseHeader, HttpStatus.CREATED);
+            responseHeader.set("location", Constants.URL_BASE_EQUIPAJES + "/"+equipaje.getId());
+            return new ResponseEntity(equipaje,responseHeader, HttpStatus.CREATED);
         }catch(Exception e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
                     "La información enviada no es válida.",e.getMessage());
             return new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("/addAeronaves")
-    public ResponseEntity<Any> agregarAeronaves(@RequestBody List<Aeronave> aeronaves){
+    @PostMapping("/addEquipajes")
+    public ResponseEntity<Any> agregarEquipajes(@RequestBody List<Equipaje> equipajes){
         try{
-            return new ResponseEntity(service.saveAeronaves(aeronaves),HttpStatus.CREATED);
+            return new ResponseEntity(service.saveEquipajes(equipajes),HttpStatus.CREATED);
         }catch(Exception e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
                     "La información enviada no es válida.",e.getMessage());
@@ -46,9 +45,9 @@ public class AeronaveController {
         }
     }
     @GetMapping("")//obtener
-    public ResponseEntity<List<Aeronave>> buscarProductos(){
+    public ResponseEntity<List<Equipaje>> buscarEquipajes(){
         try{
-            return new ResponseEntity(service.getAeronaves(),HttpStatus.OK);
+            return new ResponseEntity(service.getEquipajes(),HttpStatus.OK);
         }catch(Exception e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
                     "La lista no es válida.",e.getMessage());
@@ -56,62 +55,61 @@ public class AeronaveController {
         }
     }
     @GetMapping("/id/{id}")
-    public ResponseEntity<Aeronave> buscarAeronavePorId(@PathVariable long id){
+    public ResponseEntity<Equipaje> buscarEquipajePorId(@PathVariable long id){
         try{
-            return new ResponseEntity(service.getAeronaveByID(id),HttpStatus.OK);
+            return new ResponseEntity(service.getEquipajeById(id),HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "la aeronave no es válida",e.getMessage());
+                    "El Equipaje no es válido",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
         }catch(NotFoundException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "No se encontró la aeronave.",e.getMessage());
+                    "No se encontró el Equipaje.",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/modelo/{modelo}")
-    public ResponseEntity<Aeronave> buscarAeronavePorDescripcion(@PathVariable String modelo){
+    @GetMapping("/pasajero/{pasajero}")
+    public ResponseEntity<Equipaje> buscarEquipajePorPasajero(@PathVariable String pasajero){
         try{
-            return new ResponseEntity(service.getAeronaveByModelo(modelo),HttpStatus.OK);
+            return new ResponseEntity(service.getEquipajeByPasajero(pasajero),HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "la aeronave no es válida",e.getMessage());
+                    "El Equipaje no es válido",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
         }catch(NotFoundException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "No se encontró la aeronave.",e.getMessage());
+                    "No se encontró el Equipaje.",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.NOT_FOUND);
         }
     }
     @PutMapping("")
-    public ResponseEntity<Any> actualizarAeronave(@RequestBody Aeronave aeronave){
+    public ResponseEntity<Any> actualizarEquipaje(@RequestBody Equipaje equipaje){
         try{
-            service.updateAeronave(aeronave);
-            return new ResponseEntity(aeronave,HttpStatus.OK);
+            service.updateEquipaje(equipaje);
+            return new ResponseEntity(equipaje,HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "la aeronave no es válida",e.getMessage());
+                    "El Equipaje no es válido",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
         }catch(NotFoundException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "No se encontró la aeronave.",e.getMessage());
+                    "No se encontró el Equipaje.",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.NOT_FOUND);
         }
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Any> eliminarAeronave(@PathVariable long id){
+    public ResponseEntity<Any> eliminarEquipaje(@PathVariable long id){
         try{
-            service.deleteAeronave(id);
+            service.deleteEquipaje(id);
             return new ResponseEntity(HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "la aeronave no es válida",e.getMessage());
+                    "El Equipaje no es válido",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
         }catch(NotFoundException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "No se encontró la aeronave.",e.getMessage());
+                    "No se encontró el Equipaje.",e.getMessage());
             return new ResponseEntity(apiError,HttpStatus.NOT_FOUND);
         }
     }
-
 }
