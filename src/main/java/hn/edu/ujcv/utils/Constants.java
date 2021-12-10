@@ -10,4 +10,9 @@ public final class Constants {
     public static final String URL_BASE_PASAJEROS = String.format("%s/pasajeros",URL_BASE);
     public static final String URL_BASE_PERSONAS = String.format("%s/personas",URL_BASE);
     public static final String URL_BASE_VEHICULOSAEROPORTUARIOS = String.format("%s/vehiculosAeroportuarios",URL_BASE);
+    public static final String URL_BASE_EQUIPAJES = String.format("%s/equipajes",URL_BASE);
+    public static final String URL_BASE_VUELOS = String.format("%s/vuelos",URL_BASE);
+    public static final String URL_BASE_AEROLINEAS = String.format("%s/aerolineas",URL_BASE);
+    public static final String URL_BASE_LOCALESCOMERCIALES = String.format("%s/localescomerciales",URL_BASE);
+    public static final String URL_BASE_USUARIOS = String.format("%s/usuarios",URL_BASE);
 }

@@ -18,18 +18,18 @@ public class EmpleadoService implements IEmpleadoService{
     public Empleado saveEmpleado(Empleado empleado) throws BusinessException {
         try{
             //Codigo
-            if(String.valueOf(empleado.getCodigo()).isEmpty()){
-               throw new BusinessException("El código está vacío.");
-           }
-           if(String.valueOf(empleado.getCodigo()).length() < 3){
-               throw new BusinessException("El código es muy corto.");
-           }
-           if(validarCodigo(empleado)){
-               throw new BusinessException("El código ya esta en uso.");
-           }
-           if(String.valueOf(empleado.getCodigo()).length() > 4){
-               throw new BusinessException("El código es muy extenso.");
-           }
+            if(empleado.getCodigo().isEmpty()){
+                throw new BusinessException("El código está vacío.");
+            }
+            if(empleado.getCodigo().length() < 3){
+                throw new BusinessException("El código es muy corto.");
+            }
+            if(validarCodigo(empleado)){
+                throw new BusinessException("El código ya esta en uso.");
+            }
+            if(empleado.getCodigo().length() > 4){
+                throw new BusinessException("El código es muy extenso.");
+            }
            //Correo electronico
             if(empleado.getCorreoElectronico().isEmpty()){
                 throw new BusinessException("El correo electrónnico está vacío.");
@@ -55,7 +55,7 @@ public class EmpleadoService implements IEmpleadoService{
                 throw new BusinessException("El sueldo está vacío.");
             }
             if(empleado.getSueldo() <= 0){
-                throw new BusinessException("El sueldo es muy corto.");
+                throw new BusinessException("El sueldo no puede ser menor o igual a 0.");
             }
             if(String.valueOf(empleado.getSueldo()).length() < 3){
                 throw new BusinessException("El sueldo es muy corto.");
@@ -108,16 +108,16 @@ public class EmpleadoService implements IEmpleadoService{
         try{
             for (Empleado empleado: empleados) {
                 //Codigo
-                if(String.valueOf(empleado.getCodigo()).isEmpty()){
+                if(empleado.getCodigo().isEmpty()){
                     throw new BusinessException("El código está vacío.");
                 }
-                if(String.valueOf(empleado.getCodigo()).length() < 3){
+                if(empleado.getCodigo().length() < 3){
                     throw new BusinessException("El código es muy corto.");
                 }
                 if(validarCodigo(empleado)){
                     throw new BusinessException("El código ya esta en uso.");
                 }
-                if(String.valueOf(empleado.getCodigo()).length() > 4){
+                if(empleado.getCodigo().length() > 4){
                     throw new BusinessException("El código es muy extenso.");
                 }
                 //Correo electronico
@@ -259,13 +259,13 @@ public class EmpleadoService implements IEmpleadoService{
         }else{
             try{
                 //Codigo
-                if(String.valueOf(empleado.getCodigo()).isEmpty()){
+                if(empleado.getCodigo().isEmpty()){
                     throw new BusinessException("El código está vacío.");
                 }
-                if(String.valueOf(empleado.getCodigo()).length() < 3){
+                if(empleado.getCodigo().length() < 3){
                     throw new BusinessException("El código es muy corto.");
                 }
-                if(String.valueOf(empleado.getCodigo()).length() > 4){
+                if(empleado.getCodigo().length() > 4){
                     throw new BusinessException("El código es muy extenso.");
                 }
                 //Correo electronico
