@@ -85,7 +85,7 @@ public class LocalComercialService implements ILocalComercialService{
             if (localComercial.getPaginaWeb().length() < 11){
                 throw new BusinessException("Pagina Web de la Aerolinea muy corta");
             }
-            if (localComercial.getPaginaWeb().length() >100){
+            if (localComercial.getPaginaWeb().length() > 60){
                 throw new BusinessException("Pagina Web de la Aerolinea muy extensa ");
             }
             //fechaIngreso
@@ -205,15 +205,15 @@ public class LocalComercialService implements ILocalComercialService{
     }
 
     @Override
-    public LocalComercial getLocalComerciaByName(String name) throws BusinessException, NotFoundException {
+    public LocalComercial getLocalComerciaByNombre(String nombre) throws BusinessException, NotFoundException {
         Optional<LocalComercial> opt = null;
         try{
-            opt = repository.findByName(name);
+            opt = repository.findByNombre(nombre);
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
         if(!opt.isPresent()){
-            throw new NotFoundException("No se encontro el Local Comercial: " + name);
+            throw new NotFoundException("No se encontro el Local Comercial: " + nombre);
         }
         return opt.get();
     }

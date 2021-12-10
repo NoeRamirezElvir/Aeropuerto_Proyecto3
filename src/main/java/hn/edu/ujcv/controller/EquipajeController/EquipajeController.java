@@ -26,7 +26,7 @@ public class EquipajeController {
         try{
             service.saveEquipaje(equipaje);
             HttpHeaders responseHeader = new HttpHeaders();
-            responseHeader.set("location", Constants.URL_BASE_EQUIPAJES + equipaje.getId());
+            responseHeader.set("location", Constants.URL_BASE_EQUIPAJES + "/"+equipaje.getId());
             return new ResponseEntity(equipaje,responseHeader, HttpStatus.CREATED);
         }catch(Exception e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
@@ -69,9 +69,9 @@ public class EquipajeController {
         }
     }
     @GetMapping("/pasajero/{pasajero}")
-    public ResponseEntity<Equipaje> buscarEquipajePorPasajero(@PathVariable String nombre){
+    public ResponseEntity<Equipaje> buscarEquipajePorPasajero(@PathVariable String pasajero){
         try{
-            return new ResponseEntity(service.getEquipajeByPasajero(nombre),HttpStatus.OK);
+            return new ResponseEntity(service.getEquipajeByPasajero(pasajero),HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
                     "El Equipaje no es válido",e.getMessage());

@@ -1,9 +1,12 @@
 package hn.edu.ujcv.service.EquipajeService;
 
 
+import hn.edu.ujcv.entity.Boleto.Boleto;
 import hn.edu.ujcv.entity.Equipaje.Equipaje;
+import hn.edu.ujcv.entity.Persona.Persona;
 import hn.edu.ujcv.exceptions.BusinessException;
 import hn.edu.ujcv.exceptions.NotFoundException;
+import hn.edu.ujcv.repository.BoletoRepository.BoletoRepository;
 import hn.edu.ujcv.repository.EquipajeRepository.EquipajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +23,17 @@ public class EquipajeService implements IEquipajeService {
     public Equipaje saveEquipaje(Equipaje equipaje) throws BusinessException {
         try{
             //boleto
+            if(equipaje.getBoleto() < 0){
+                throw new BusinessException("El boleto no puede ser menor a 0");
+            }
             if(String.valueOf(equipaje.getBoleto()).isEmpty()){
                 throw new BusinessException("El boleto del equipaje viene vacio");
             }
             if(String.valueOf(equipaje.getBoleto()).length() > 5){
                 throw new BusinessException("El boleto del equipaje es muy extenso ");
+            }
+            if(validarBoleto(equipaje)){
+                throw new BusinessException("Boleto ya registrado!");
             }
             //pasajero
             if(equipaje.getPasajero().isEmpty()){
@@ -182,15 +191,15 @@ public class EquipajeService implements IEquipajeService {
     }
 
     @Override
-    public Equipaje getEquipajeByPasajero(String name) throws BusinessException, NotFoundException {
+    public Equipaje getEquipajeByPasajero(String pasajero) throws BusinessException, NotFoundException {
         Optional<Equipaje> opt = null;
         try{
-            opt = repository.findByPasajero(name);
+            opt = repository.findByPasajero(pasajero);
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
         if(!opt.isPresent()){
-            throw new NotFoundException("No se encontro el Equipaje de : " + name);
+            throw new NotFoundException("No se encontro el Equipaje de : " + pasajero);
         }
         return opt.get();
     }
@@ -305,5 +314,20 @@ public class EquipajeService implements IEquipajeService {
                 throw new BusinessException(e1.getMessage());
             }
         }
+    }
+
+    private boolean validarBoleto (Equipaje equipaje) throws BusinessException {
+        boolean condicion = false;
+        try {
+            for (Equipaje equipaje1 : getEquipajes()) {
+                if (equipaje.getBoleto() == equipaje1.getBoleto()) {
+                    condicion = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+        return condicion;
     }
 }

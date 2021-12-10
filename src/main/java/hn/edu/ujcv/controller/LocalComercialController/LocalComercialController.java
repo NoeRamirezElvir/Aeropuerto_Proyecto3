@@ -71,7 +71,7 @@ public class LocalComercialController {
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<LocalComercial> buscarLocalPorNombre(@PathVariable String nombre){
         try{
-            return new ResponseEntity(service.getLocalComerciaByName(nombre),HttpStatus.OK);
+            return new ResponseEntity(service.getLocalComerciaByNombre(nombre),HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
                     "El Local no es válido",e.getMessage());

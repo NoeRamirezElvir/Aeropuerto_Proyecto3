@@ -40,6 +40,9 @@ public class AerolineaService implements IAerolineaService{
             if (aerolinea.getCodigo().length() > 3){
                 throw new BusinessException("Código de la Aerolinea no puede tener mas de 3 caracateres");
             }
+            if (validarCodigo(aerolinea)){
+                throw new BusinessException("Codigo ya registrado");
+            }
             //telefonoAtencion
             if(String.valueOf(aerolinea.getTelefonoAtencion()).isEmpty()){
                 throw new Exception("El número de teléfono de atención esta vacío.");
@@ -80,8 +83,8 @@ public class AerolineaService implements IAerolineaService{
             if(aerolinea.getDireccion().isEmpty()){
                 throw new BusinessException("La dirección está vacío.");
             }
-            if(aerolinea.getDireccion().length() < 3){
-                throw new BusinessException("Ingrese más de 2 caracteres en la dirección.");
+            if(aerolinea.getDireccion().length() < 5){
+                throw new BusinessException("Ingrese más de 5 caracteres en la dirección.");
             }
             if(aerolinea.getDireccion().length() > 50){
                 throw new BusinessException("La dirección no puede tener más de 50 caracteres.");
@@ -233,15 +236,15 @@ public class AerolineaService implements IAerolineaService{
     }
 
     @Override
-    public Aerolinea getAerolineaByName(String name) throws BusinessException, NotFoundException {
+    public Aerolinea getAerolineaByNombre(String nombre) throws BusinessException, NotFoundException {
         Optional<Aerolinea> opt = null;
         try{
-            opt=repository.findByNombre(name);
+            opt = repository.findByNombre(nombre);
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
         if (!opt.isPresent()){
-            throw new NotFoundException("No se Encontro la Aerolinea: "+name);
+            throw new NotFoundException("No se Encontro la Aerolinea: "+nombre);
         }
         return opt.get();
     }
@@ -250,7 +253,7 @@ public class AerolineaService implements IAerolineaService{
     public void deleteAerolinea(long id) throws BusinessException, NotFoundException {
         Optional<Aerolinea> opt = null;
         try{
-            opt= repository.findById(id);
+            opt = repository.findById(id);
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
@@ -272,7 +275,7 @@ public class AerolineaService implements IAerolineaService{
             if (String.valueOf(aerolinea.getId()).isEmpty()) {
                 throw new BusinessException("ID de la aerolinea viene vacio");
             }
-            opt= repository.findById(aerolinea.getId());
+            opt = repository.findById(aerolinea.getId());
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
@@ -280,9 +283,6 @@ public class AerolineaService implements IAerolineaService{
             throw new NotFoundException("No se Encontro la Aerolinea: "+ aerolinea.getId());
         }else{
             try{
-                if (String.valueOf(aerolinea.getId()).isEmpty()) {
-                    throw new BusinessException("ID de la Aerolinea viene vacio");
-                }
                 //nombre
                 if (aerolinea.getNombre().isEmpty()){
                     throw new BusinessException("Nombre de la Aerolinea viene vacio");
@@ -343,8 +343,8 @@ public class AerolineaService implements IAerolineaService{
                 if(aerolinea.getDireccion().isEmpty()){
                     throw new BusinessException("La dirección está vacío.");
                 }
-                if(aerolinea.getDireccion().length() < 3){
-                    throw new BusinessException("Ingrese más de 2 caracteres en la dirección.");
+                if(aerolinea.getDireccion().length() < 5){
+                    throw new BusinessException("Ingrese más de 5 caracteres en la dirección.");
                 }
                 if(aerolinea.getDireccion().length() > 50){
                     throw new BusinessException("La dirección no puede tener más de 50 caracteres.");
@@ -383,5 +383,19 @@ public class AerolineaService implements IAerolineaService{
                 throw new BusinessException(e1.getMessage());
             }
         }
+    }
+    private boolean validarCodigo (Aerolinea aerolinea) throws BusinessException {
+        boolean condicion = false;
+        try {
+            for (Aerolinea aerolinea1 : getAerolineas()) {
+                if (aerolinea.getCodigo().equals(aerolinea1.getCodigo())) {
+                    condicion = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+        return condicion;
     }
 }

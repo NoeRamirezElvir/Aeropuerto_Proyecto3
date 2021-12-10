@@ -11,27 +11,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VueloService implements IVueloService{
+public class VueloService implements IVueloService {
     @Autowired
     private VueloRepository repository;
+
     @Override
     public Vuelo saveVuelo(Vuelo vuelo) throws BusinessException {
-        try{
+        try {
             //fecha
-            if(String.valueOf(vuelo.getFecha()).isEmpty()){
+            if (String.valueOf(vuelo.getFecha()).isEmpty()) {
                 throw new BusinessException("La fecha está vacía.");
             }
-            if(String.valueOf(vuelo.getFecha()).length() != 10){
-                throw new BusinessException("Tamaño de  fecha incorrecta (dd/MM/yyyy)");
-            }
             //lugarPartida
-            if(vuelo.getLugarPartida().isEmpty()){
+            if (vuelo.getLugarPartida().isEmpty()) {
                 throw new BusinessException("Lugar de partida viene vacio");
             }
-            if(vuelo.getLugarPartida().length() < 4){
-                throw new BusinessException("Lugar de partida es muy corto Ingrese mas de 3 caracteres.");
+            if (vuelo.getLugarPartida().length() < 5) {
+                throw new BusinessException("Lugar de partida es muy corto Ingrese mas de 5 caracteres.");
             }
-            if(vuelo.getLugarPartida().length() > 50){
+            if (vuelo.getLugarPartida().length() > 50) {
                 throw new BusinessException("Lugar de partida es muy extenso.");
             }
             //horadespegue
@@ -45,23 +43,23 @@ public class VueloService implements IVueloService{
                 throw new BusinessException("Hora de despegue invalida! Ingrese el formato (00:00)");
             }
             //destino
-            if(vuelo.getDestino().isEmpty()){
+            if (vuelo.getDestino().isEmpty()) {
                 throw new BusinessException("El Destino viene vacio");
             }
-            if(vuelo.getDestino().length() < 4){
+            if (vuelo.getDestino().length() < 4) {
                 throw new BusinessException("El destino es muy corto Ingrese mas de 3 caracteres.");
             }
-            if(vuelo.getDestino().length() > 50){
+            if (vuelo.getDestino().length() > 50) {
                 throw new BusinessException("El destino es muy extenso.");
             }
             //aerolinea
-            if(vuelo.getAerolinea().isEmpty()){
+            if (vuelo.getAerolinea().isEmpty()) {
                 throw new BusinessException("La aerolínea está vacía.");
             }
-            if(vuelo.getAerolinea().length() < 4){
+            if (vuelo.getAerolinea().length() < 4) {
                 throw new BusinessException("Ingrese más de 4 caracteres en la aerolínea.");
             }
-            if(vuelo.getAerolinea().length()>50){
+            if (vuelo.getAerolinea().length() > 50) {
                 throw new BusinessException("La aerolínea no puede tener más de 50 caracteres.");
             }
             //tiempoEstimado
@@ -85,30 +83,30 @@ public class VueloService implements IVueloService{
                 throw new BusinessException("La descripción no puede tener más de 50 caracteres.");
             }
             return repository.save(vuelo);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
     }
 
     @Override
     public List<Vuelo> saveVuelos(List<Vuelo> vueloList) throws BusinessException {
-        try{
-            for (Vuelo vuelo:vueloList) {
+        try {
+            for (Vuelo vuelo : vueloList) {
                 //fecha
-                if(String.valueOf(vuelo.getFecha()).isEmpty()){
+                if (String.valueOf(vuelo.getFecha()).isEmpty()) {
                     throw new BusinessException("La fecha está vacía.");
                 }
-                if(String.valueOf(vuelo.getFecha()).length() != 10){
+                if (String.valueOf(vuelo.getFecha()).length() != 10) {
                     throw new BusinessException("Tamaño de  fecha incorrecta (dd/MM/yyyy)");
                 }
                 //lugarPartida
-                if(vuelo.getLugarPartida().isEmpty()){
+                if (vuelo.getLugarPartida().isEmpty()) {
                     throw new BusinessException("Lugar de partida viene vacio");
                 }
-                if(vuelo.getLugarPartida().length() < 4){
+                if (vuelo.getLugarPartida().length() < 4) {
                     throw new BusinessException("Lugar de partida es muy corto Ingrese mas de 3 caracteres.");
                 }
-                if(vuelo.getLugarPartida().length() > 50){
+                if (vuelo.getLugarPartida().length() > 50) {
                     throw new BusinessException("Lugar de partida es muy extenso.");
                 }
                 //horadespegue
@@ -122,23 +120,23 @@ public class VueloService implements IVueloService{
                     throw new BusinessException("Hora de despegue invalida! Ingrese el formato (00:00)");
                 }
                 //destino
-                if(vuelo.getDestino().isEmpty()){
+                if (vuelo.getDestino().isEmpty()) {
                     throw new BusinessException("El Destino viene vacio");
                 }
-                if(vuelo.getDestino().length() < 4){
+                if (vuelo.getDestino().length() < 4) {
                     throw new BusinessException("El destino es muy corto Ingrese mas de 3 caracteres.");
                 }
-                if(vuelo.getDestino().length() > 50){
+                if (vuelo.getDestino().length() > 50) {
                     throw new BusinessException("El destino es muy extenso.");
                 }
                 //aerolinea
-                if(vuelo.getAerolinea().isEmpty()){
+                if (vuelo.getAerolinea().isEmpty()) {
                     throw new BusinessException("La aerolínea está vacía.");
                 }
-                if(vuelo.getAerolinea().length() < 4){
+                if (vuelo.getAerolinea().length() < 4) {
                     throw new BusinessException("Ingrese más de 4 caracteres en la aerolínea.");
                 }
-                if(vuelo.getAerolinea().length()>50){
+                if (vuelo.getAerolinea().length() > 50) {
                     throw new BusinessException("La aerolínea no puede tener más de 50 caracteres.");
                 }
                 //tiempoEstimado
@@ -163,16 +161,16 @@ public class VueloService implements IVueloService{
                 }
             }
             return repository.saveAll(vueloList);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
     }
 
     @Override
     public List<Vuelo> getVuelos() throws BusinessException {
-        try{
+        try {
             return repository.findAll();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
     }
@@ -180,14 +178,13 @@ public class VueloService implements IVueloService{
     @Override
     public Vuelo getVueloById(long id) throws BusinessException, NotFoundException {
         Optional<Vuelo> opt = null;
-        if (opt.isPresent()){
-            try{
-                opt = repository.findById(id);
-            }catch (Exception e){
-                throw new BusinessException(e.getMessage());
-            }
+        try {
+            opt = repository.findById(id);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
         }
-        if (!opt.isPresent()){
+
+        if (!opt.isPresent()) {
             throw new NotFoundException("No se encontro el Vuelo: " + id);
         }
         return opt.get();
@@ -196,13 +193,13 @@ public class VueloService implements IVueloService{
     @Override
     public Vuelo getVueloByDestino(String destino) throws BusinessException, NotFoundException {
         Optional<Vuelo> opt = null;
-        try{
+        try {
             opt = repository.findByDestino(destino);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
-        if (!opt.isPresent()){
-            throw new NotFoundException("No se encontro el Vuelo con destino a: "+ destino);
+        if (!opt.isPresent()) {
+            throw new NotFoundException("No se encontro el Vuelo con destino a: " + destino);
         }
         return opt.get();
     }
@@ -210,20 +207,20 @@ public class VueloService implements IVueloService{
     @Override
     public void deleteVuelo(long id) throws BusinessException, NotFoundException {
         Optional<Vuelo> opt = null;
-        try{
+        try {
             if (String.valueOf(id).isEmpty()) {
                 throw new BusinessException("ID del vuelo viene vacio");
             }
             opt = repository.findById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
-        if (!opt.isPresent()){
+        if (!opt.isPresent()) {
             throw new NotFoundException("No se encontro el Vuelo: " + id);
-        }else{
-            try{
+        } else {
+            try {
                 repository.deleteById(id);
-            }catch (Exception e1){
+            } catch (Exception e1) {
                 throw new BusinessException(e1.getMessage());
             }
         }
@@ -232,33 +229,30 @@ public class VueloService implements IVueloService{
     @Override
     public Vuelo updateVuelo(Vuelo vuelo) throws BusinessException, NotFoundException {
         Optional<Vuelo> opt = null;
-        try{
+        try {
             if (String.valueOf(vuelo.getId()).isEmpty()) {
                 throw new BusinessException("ID del vuelo viene vacio");
             }
             opt = repository.findById(vuelo.getId());
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
-        if (!opt.isPresent()){
+        if (!opt.isPresent()) {
             throw new NotFoundException("No se encontro el Vuelo: " + vuelo.getId());
-        }else{
-            try{
+        } else {
+            try {
                 //fecha
-                if(String.valueOf(vuelo.getFecha()).isEmpty()){
+                if (String.valueOf(vuelo.getFecha()).isEmpty()) {
                     throw new BusinessException("La fecha está vacía.");
                 }
-                if(String.valueOf(vuelo.getFecha()).length() != 10){
-                    throw new BusinessException("Tamaño de  fecha incorrecta (dd/MM/yyyy)");
-                }
                 //lugarPartida
-                if(vuelo.getLugarPartida().isEmpty()){
+                if (vuelo.getLugarPartida().isEmpty()) {
                     throw new BusinessException("Lugar de partida viene vacio");
                 }
-                if(vuelo.getLugarPartida().length() < 4){
+                if (vuelo.getLugarPartida().length() < 4) {
                     throw new BusinessException("Lugar de partida es muy corto Ingrese mas de 3 caracteres.");
                 }
-                if(vuelo.getLugarPartida().length() > 50){
+                if (vuelo.getLugarPartida().length() > 50) {
                     throw new BusinessException("Lugar de partida es muy extenso.");
                 }
                 //horadespegue
@@ -272,23 +266,23 @@ public class VueloService implements IVueloService{
                     throw new BusinessException("Hora de despegue invalida! Ingrese el formato (00:00)");
                 }
                 //destino
-                if(vuelo.getDestino().isEmpty()){
+                if (vuelo.getDestino().isEmpty()) {
                     throw new BusinessException("El Destino viene vacio");
                 }
-                if(vuelo.getDestino().length() < 4){
+                if (vuelo.getDestino().length() < 4) {
                     throw new BusinessException("El destino es muy corto Ingrese mas de 3 caracteres.");
                 }
-                if(vuelo.getDestino().length() > 50){
+                if (vuelo.getDestino().length() > 50) {
                     throw new BusinessException("El destino es muy extenso.");
                 }
                 //aerolinea
-                if(vuelo.getAerolinea().isEmpty()){
+                if (vuelo.getAerolinea().isEmpty()) {
                     throw new BusinessException("La aerolínea está vacía.");
                 }
-                if(vuelo.getAerolinea().length() < 4){
+                if (vuelo.getAerolinea().length() < 4) {
                     throw new BusinessException("Ingrese más de 4 caracteres en la aerolínea.");
                 }
-                if(vuelo.getAerolinea().length()>50){
+                if (vuelo.getAerolinea().length() > 50) {
                     throw new BusinessException("La aerolínea no puede tener más de 50 caracteres.");
                 }
                 //tiempoEstimado
@@ -321,7 +315,7 @@ public class VueloService implements IVueloService{
                 vueloEx.setTiempoE(vuelo.getTiempoE());
                 vueloEx.setDescripcion(vuelo.getDescripcion());
                 return repository.save(vueloEx);
-            }catch (Exception e1){
+            } catch (Exception e1) {
                 throw new BusinessException(e1.getMessage());
             }
         }

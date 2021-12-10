@@ -11,7 +11,7 @@ public interface IAerolineaService {
     List<Aerolinea> saveAerolineas(List<Aerolinea> aerolineas)throws BusinessException;
     List<Aerolinea> getAerolineas()throws BusinessException;
     Aerolinea       getAerolineaById(long id)throws BusinessException, NotFoundException;
-    Aerolinea       getAerolineaByName(String name)throws BusinessException,NotFoundException;
+    Aerolinea       getAerolineaByNombre(String nombre)throws BusinessException,NotFoundException;
     void            deleteAerolinea(long id)throws BusinessException, NotFoundException;
     Aerolinea       updateAerolinea(Aerolinea aerolinea)throws BusinessException,NotFoundException;
 }

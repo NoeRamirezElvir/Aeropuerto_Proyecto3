@@ -71,7 +71,7 @@ public class AerolineaController {
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<Aerolinea> buscarAerolineaPorNombre(@PathVariable String nombre){
         try{
-            return new ResponseEntity(service.getAerolineaByName(nombre),HttpStatus.OK);
+            return new ResponseEntity(service.getAerolineaByNombre(nombre),HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
                     "la Aerolínea no es válida",e.getMessage());

@@ -11,7 +11,7 @@ public interface ILocalComercialService {
     List<LocalComercial> saveLocalesComerciales(List<LocalComercial> comercialList)throws BusinessException;
     List<LocalComercial> getLocalesComerciales()throws BusinessException;
     LocalComercial       getLocalComercialById(long id)throws BusinessException, NotFoundException;
-    LocalComercial       getLocalComerciaByName(String nombre)throws BusinessException,NotFoundException;
+    LocalComercial       getLocalComerciaByNombre(String nombre)throws BusinessException,NotFoundException;
     void                 deleteLocalComercial(long id)throws BusinessException, NotFoundException;
     LocalComercial       updateLocalComercial(LocalComercial localComercial)throws BusinessException,NotFoundException;
 }
