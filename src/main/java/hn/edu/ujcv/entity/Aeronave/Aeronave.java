@@ -18,7 +18,7 @@ public class Aeronave {
     private String modelo;
     private String fabricante;
     private String aerolinea;
-    private int    tamaño;
+    private double tamaño;
     private int    capacidad;
     private String tipo;
 }

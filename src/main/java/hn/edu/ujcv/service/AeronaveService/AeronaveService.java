@@ -177,7 +177,7 @@ public class AeronaveService implements IAeronaveService {
     public Aeronave getAeronaveByModelo(String modelo)throws BusinessException,NotFoundException{
         Optional<Aeronave> opt = null;
         try{
-            opt = repository.findByModelo(modelo);
+            opt = repository.findFirstByModelo(modelo);
         }catch(Exception e){
             throw new BusinessException(e.getMessage());
         }if(!opt.isPresent()){

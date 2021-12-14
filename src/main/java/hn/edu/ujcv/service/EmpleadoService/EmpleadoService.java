@@ -64,8 +64,21 @@ public class EmpleadoService implements IEmpleadoService{
                 throw new BusinessException("El sueldo es muy extenso.");
             }
             //fecha de ingreso
-            if(String.valueOf(empleado.getFechaIngreso()).isEmpty()){
+            if(empleado.getFechaIngreso().isEmpty()){
                 throw new BusinessException("La fecha está vacía.");
+            }
+            if(empleado.getFechaIngreso().equals("0000/00/00")){
+                throw new BusinessException("La fecha está vacía.");
+            }
+            if(empleado.getFechaIngreso().equals("    /  /  "))
+            {
+                throw new BusinessException("La fecha está vacía.");
+            }
+            if(empleado.getFechaIngreso().length() < 10){
+                throw new BusinessException("La fecha es muy corta.");
+            }
+            if(empleado.getFechaIngreso().length() > 10){
+                throw new BusinessException("La fecha es muy larga.");
             }
             //Cargo
             if(empleado.getCargo().isEmpty()){
@@ -154,8 +167,21 @@ public class EmpleadoService implements IEmpleadoService{
                     throw new BusinessException("El sueldo es muy extenso.");
                 }
                 //fecha de ingreso
-                if(String.valueOf(empleado.getFechaIngreso()).isEmpty()){
+                if(empleado.getFechaIngreso().isEmpty()){
                     throw new BusinessException("La fecha está vacía.");
+                }
+                if(empleado.getFechaIngreso().equals("0000/00/00")){
+                    throw new BusinessException("La fecha está vacía.");
+                }
+                if(empleado.getFechaIngreso().equals("    /  /  "))
+                {
+                    throw new BusinessException("La fecha está vacía.");
+                }
+                if(empleado.getFechaIngreso().length() < 10){
+                    throw new BusinessException("La fecha es muy corta.");
+                }
+                if(empleado.getFechaIngreso().length() > 10){
+                    throw new BusinessException("La fecha es muy larga.");
                 }
                 //Cargo
                 if(empleado.getCargo().isEmpty()){
@@ -220,7 +246,7 @@ public class EmpleadoService implements IEmpleadoService{
     public Empleado getEmpleadoByNombre(String nombre) throws BusinessException, NotFoundException {
         Optional<Empleado> opt = null;
         try{
-            opt = repository.findByNombre(nombre);
+            opt = repository.findFirstByNombre(nombre);
         }catch(Exception e){
             throw new BusinessException(e.getMessage());
         }if(!opt.isPresent()){
@@ -302,8 +328,21 @@ public class EmpleadoService implements IEmpleadoService{
                     throw new BusinessException("El sueldo es muy extenso.");
                 }
                 //fecha de ingreso
-                if(String.valueOf(empleado.getFechaIngreso()).isEmpty()){
+                if(empleado.getFechaIngreso().isEmpty()){
                     throw new BusinessException("La fecha está vacía.");
+                }
+                if(empleado.getFechaIngreso().equals("0000-00-00")){
+                    throw new BusinessException("La fecha está vacía.");
+                }
+                if(empleado.getFechaIngreso().equals("    -  -  "))
+                {
+                    throw new BusinessException("La fecha está vacía.");
+                }
+                if(empleado.getFechaIngreso().length() < 10){
+                    throw new BusinessException("La fecha es muy corta.");
+                }
+                if(empleado.getFechaIngreso().length() > 10){
+                    throw new BusinessException("La fecha es muy larga.");
                 }
                 //Cargo
                 if(empleado.getCargo().isEmpty()){
@@ -355,10 +394,11 @@ public class EmpleadoService implements IEmpleadoService{
     private boolean validarCodigo(Empleado empleado) throws BusinessException{
         boolean condicion = false;
         try{
-            List<Empleado> listaEmpleados = getEmpleados();
+            List<Empleado> listaEmpleados = repository.findAll();
             for (Empleado empleados: listaEmpleados) {
-                if(empleados.getCodigo() == empleado.getCodigo()){
+                if(empleados.getCodigo().equals(empleado.getCodigo())){
                     condicion = true;
+                    break;
                 }
             }
         }catch(Exception e){

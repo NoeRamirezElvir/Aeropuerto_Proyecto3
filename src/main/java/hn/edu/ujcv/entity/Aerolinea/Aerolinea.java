@@ -23,7 +23,7 @@ public class Aerolinea {
     private String ubicacionAeropuerto;
     private String nombre;
 
-    public long getId() {
+   /* public long getId() {
         return id;
     }
     public void setId(long id) {
@@ -70,5 +70,5 @@ public class Aerolinea {
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
+    }*/
 }
