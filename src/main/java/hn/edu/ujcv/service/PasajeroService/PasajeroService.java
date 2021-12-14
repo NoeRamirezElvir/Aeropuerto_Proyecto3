@@ -74,11 +74,11 @@ public class PasajeroService implements IPasajeroService{
             if(pasajero.getIdDocumento().isEmpty()){
                 throw new BusinessException("El id de documento está vacío.");
             }
-            if(pasajero.getIdDocumento().length() < 3){
+            if(pasajero.getIdDocumento().length() < 11){
                 throw new BusinessException("Ingrese más de 3 caracteres en el id de documento.");
             }
-            if(pasajero.getIdDocumento().length() > 50){
-                throw new BusinessException("El id de documento no puede tener más de 50 caracteres.");
+            if(pasajero.getIdDocumento().length() > 15){
+                throw new BusinessException("El id de documento no puede tener más de 15 caracteres.");
             }
             //nacionalidad
             if(pasajero.getNacionalidad().isEmpty()){
@@ -87,8 +87,8 @@ public class PasajeroService implements IPasajeroService{
             if(pasajero.getNacionalidad().length() < 3){
                 throw new BusinessException("Ingrese más de 3 caracteres en la nacionalidad.");
             }
-            if(pasajero.getNacionalidad().length() > 10){
-                throw new BusinessException("La nacionalidad no puede tener más de 10 caracteres.");
+            if(pasajero.getNacionalidad().length() > 50){
+                throw new BusinessException("La nacionalidad no puede tener más de 50 caracteres.");
             }
             //nombre
             if(pasajero.getNombre().isEmpty()){
@@ -225,7 +225,7 @@ public class PasajeroService implements IPasajeroService{
     public Pasajero getPasajeroByNombre(String nombre) throws BusinessException, NotFoundException {
         Optional<Pasajero> opt = null;
         try{
-            opt = repository.findByNombre(nombre);
+            opt = repository.findFirstByNombre(nombre);
         }catch(Exception e){
             throw new BusinessException(e.getMessage());
         }if(!opt.isPresent()){

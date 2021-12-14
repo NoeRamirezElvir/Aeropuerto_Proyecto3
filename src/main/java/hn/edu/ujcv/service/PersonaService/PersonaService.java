@@ -36,7 +36,7 @@ public class PersonaService implements IPersonaService{
                 throw new BusinessException("El nombre está vacío.");
             }
             if(persona.getNombre().length() < 3){
-                throw new BusinessException("Ingrese más de 1 caracteres en el nombre.");
+                throw new BusinessException("Ingrese más de 3 caracteres en el nombre.");
             }
             if(persona.getNombre().length() > 50){
                 throw new BusinessException("El nombre no puede tener más de 50 caracteres.");
@@ -56,7 +56,7 @@ public class PersonaService implements IPersonaService{
                 throw new BusinessException("La dirección está vacío.");
             }
             if(persona.getDireccion().length() < 3){
-                throw new BusinessException("Ingrese más de 1 caracteres en la dirección.");
+                throw new BusinessException("Ingrese más de 3 caracteres en la dirección.");
             }
             if(persona.getDireccion().length() > 50){
                 throw new BusinessException("La dirección no puede tener más de 50 caracteres.");
@@ -66,7 +66,7 @@ public class PersonaService implements IPersonaService{
                 throw new BusinessException("El género está vacío.");
             }
             if(persona.getGenero().length() < 3){
-                throw new BusinessException("Ingrese más de 1 caracteres en el género.");
+                throw new BusinessException("Ingrese más de 3 caracteres en el género.");
             }
             if(persona.getGenero().length() > 50){
                 throw new BusinessException("El género no puede tener más de 50 caracteres.");
@@ -76,7 +76,7 @@ public class PersonaService implements IPersonaService{
                 throw new BusinessException("El tipo está vacío.");
             }
             if(persona.getTipo().length() < 3){
-                throw new BusinessException("Ingrese más de 1 caracteres en el tipo.");
+                throw new BusinessException("Ingrese más de 3 caracteres en el tipo.");
             }
             if(persona.getTipo().length() > 50){
                 throw new BusinessException("El tipo no puede tener más de 50 caracteres.");
@@ -109,7 +109,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("El nombre está vacío.");
                 }
                 if(persona.getNombre().length() < 3){
-                    throw new BusinessException("Ingrese más de 1 caracteres en el nombre.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en el nombre.");
                 }
                 if(persona.getNombre().length() > 50){
                     throw new BusinessException("El nombre no puede tener más de 50 caracteres.");
@@ -129,7 +129,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("La dirección está vacío.");
                 }
                 if(persona.getDireccion().length() < 3){
-                    throw new BusinessException("Ingrese más de 1 caracteres en la dirección.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en la dirección.");
                 }
                 if(persona.getDireccion().length() > 50){
                     throw new BusinessException("La dirección no puede tener más de 50 caracteres.");
@@ -139,7 +139,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("El género está vacío.");
                 }
                 if(persona.getGenero().length() < 3){
-                    throw new BusinessException("Ingrese más de 1 caracteres en el género.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en el género.");
                 }
                 if(persona.getGenero().length() > 50){
                     throw new BusinessException("El género no puede tener más de 50 caracteres.");
@@ -149,7 +149,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("El tipo está vacío.");
                 }
                 if(persona.getTipo().length() < 3){
-                    throw new BusinessException("Ingrese más de 1 caracteres en el tipo.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en el tipo.");
                 }
                 if(persona.getTipo().length() > 50){
                     throw new BusinessException("El tipo no puede tener más de 50 caracteres.");
@@ -187,7 +187,7 @@ public class PersonaService implements IPersonaService{
     public Persona getPersonaByNombre(String nombre) throws BusinessException, NotFoundException {
         Optional<Persona> opt = null;
         try{
-            opt = repository.findByNombre(nombre);
+            opt = repository.findFirstByNombre(nombre);
         }catch(Exception e){
             throw new BusinessException(e.getMessage());
         }if(!opt.isPresent()){
@@ -241,7 +241,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("El nombre está vacío.");
                 }
                 if (persona.getNombre().length() < 3) {
-                    throw new BusinessException("Ingrese más de 1 caracteres en el nombre.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en el nombre.");
                 }
                 if (persona.getNombre().length() > 50) {
                     throw new BusinessException("El nombre no puede tener más de 50 caracteres.");
@@ -261,7 +261,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("La dirección está vacío.");
                 }
                 if (persona.getDireccion().length() < 3) {
-                    throw new BusinessException("Ingrese más de 1 caracteres en la dirección.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en la dirección.");
                 }
                 if (persona.getDireccion().length() > 50) {
                     throw new BusinessException("La dirección no puede tener más de 50 caracteres.");
@@ -271,7 +271,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("El género está vacío.");
                 }
                 if (persona.getGenero().length() < 3) {
-                    throw new BusinessException("Ingrese más de 1 caracteres en el género.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en el género.");
                 }
                 if (persona.getGenero().length() > 50) {
                     throw new BusinessException("El género no puede tener más de 50 caracteres.");
@@ -281,7 +281,7 @@ public class PersonaService implements IPersonaService{
                     throw new BusinessException("El tipo está vacío.");
                 }
                 if (persona.getTipo().length() < 3) {
-                    throw new BusinessException("Ingrese más de 1 caracteres en el tipo.");
+                    throw new BusinessException("Ingrese más de 3 caracteres en el tipo.");
                 }
                 if (persona.getTipo().length() > 50) {
                     throw new BusinessException("El tipo no puede tener más de 50 caracteres.");
