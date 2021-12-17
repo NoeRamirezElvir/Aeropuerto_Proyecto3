@@ -130,6 +130,9 @@ public class EquipajeService implements IEquipajeService {
                 if(String.valueOf(equipaje.getFechaRegistro()).isEmpty()){
                     throw new BusinessException("La fecha está vacía.");
                 }
+                if(equipaje.getFechaRegistro().length() != 10){
+                    throw new BusinessException("Fecha incorrecta.");
+                }
                 //destino
                 if(equipaje.getDestino().isEmpty()){
                     throw new BusinessException("El Destino del equipaje viene vacio");
@@ -194,7 +197,7 @@ public class EquipajeService implements IEquipajeService {
     public Equipaje getEquipajeByPasajero(String pasajero) throws BusinessException, NotFoundException {
         Optional<Equipaje> opt = null;
         try{
-            opt = repository.findByPasajero(pasajero);
+            opt = repository.findFirstByPasajero(pasajero);
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
@@ -269,6 +272,9 @@ public class EquipajeService implements IEquipajeService {
                 //fechaRegistro
                 if (String.valueOf(equipaje.getFechaRegistro()).isEmpty()) {
                     throw new BusinessException("La fecha está vacía.");
+                }
+                if(equipaje.getFechaRegistro().length() != 10){
+                    throw new BusinessException("Fecha incorrecta.");
                 }
                 //destino
                 if (equipaje.getDestino().isEmpty()) {

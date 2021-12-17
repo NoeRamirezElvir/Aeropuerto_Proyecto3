@@ -14,7 +14,8 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String nombre;
+    private String empleado;
+    private String usuario;
     private String contraseña;
 
     public long getId() {
@@ -25,12 +26,20 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getEmpleado() {
+        return empleado;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getContraseña() {

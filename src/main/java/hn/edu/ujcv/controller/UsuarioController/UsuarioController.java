@@ -68,10 +68,10 @@ public class UsuarioController {
             return new ResponseEntity(apiError,HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<Usuario> buscarUsuarioPorNombre(@PathVariable String nombre){
+    @GetMapping("/nombre/{usuario}")
+    public ResponseEntity<Usuario> buscarUsuarioPorNombre(@PathVariable String usuario){
         try{
-            return new ResponseEntity(service.getUsuarioByNombre(nombre),HttpStatus.OK);
+            return new ResponseEntity(service.getUsuarioByUsuario(usuario),HttpStatus.OK);
         }catch(BusinessException e){
             RestApiError apiError = new RestApiError(HttpStatus.INTERNAL_SERVER_ERROR,
                     "El Usuario no es válido",e.getMessage());

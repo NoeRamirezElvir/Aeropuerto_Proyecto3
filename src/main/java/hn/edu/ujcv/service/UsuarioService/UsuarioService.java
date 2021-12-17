@@ -17,14 +17,17 @@ public class UsuarioService implements IUsuarioService{
     @Override
     public Usuario saveUsuario(Usuario usuario) throws BusinessException {
         try{
-            //nombre
-            if (usuario.getNombre().isEmpty()){
+            if (usuario.getEmpleado().isEmpty()){
+                throw new BusinessException("Empleado esta vacio");
+            }
+            //usuario
+            if (usuario.getUsuario().isEmpty()) {
                 throw new BusinessException("Nombre de Usuario esta vacio");
             }
-            if (usuario.getNombre().length() < 3){
-                throw new BusinessException("Ingrese un Nombre de Usuario con mas de 3 caracteres");
+            if (usuario.getUsuario().length() < 3) {
+                throw new BusinessException("El Nombre de Usuario tiene que tener mas de 3 caracteres");
             }
-            if (usuario.getNombre().length() > 25){
+            if (usuario.getUsuario().length() > 25) {
                 throw new BusinessException("Ingrese un Nombre de Usuario con menos de 25 caracteres");
             }
             if (validarUser(usuario)){
@@ -50,14 +53,17 @@ public class UsuarioService implements IUsuarioService{
     public List<Usuario> saveUsuarios(List<Usuario> usuarioList) throws BusinessException {
         try{
             for (Usuario usuario:usuarioList) {
-                //nombre
-                if (usuario.getNombre().isEmpty()) {
+                if (usuario.getEmpleado().isEmpty()){
+                    throw new BusinessException("Empleado esta vacio");
+                }
+                //usuario
+                if (usuario.getUsuario().isEmpty()) {
                     throw new BusinessException("Nombre de Usuario esta vacio");
                 }
-                if (usuario.getNombre().length() < 15) {
+                if (usuario.getUsuario().length() < 15) {
                     throw new BusinessException("Ingrese un Nombre de Usuario con mas de 14 caracteres");
                 }
-                if (usuario.getNombre().length() > 25) {
+                if (usuario.getUsuario().length() > 25) {
                     throw new BusinessException("Ingrese un Nombre de Usuario con menos de 25 caracteres");
                 }
                 //contraseña
@@ -101,15 +107,15 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
-    public Usuario getUsuarioByNombre(String nombre) throws BusinessException, NotFoundException {
+    public Usuario getUsuarioByUsuario(String usuario) throws BusinessException, NotFoundException {
         Optional<Usuario> opt = null;
         try{
-            opt = repository.findByNombre(nombre);
+            opt = repository.findByUsuario(usuario);
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }
         if(!opt.isPresent()){
-            throw new NotFoundException("No se encontro el Usuario: " + nombre);
+            throw new NotFoundException("No se encontro el Usuario: " + usuario);
         }
         return opt.get();
     }
@@ -148,14 +154,17 @@ public class UsuarioService implements IUsuarioService{
             throw new NotFoundException("No se encontro el Usuario: " + usuario.getId());
         } else {
             try{
-                //nombre
-                if (usuario.getNombre().isEmpty()){
+                if (usuario.getEmpleado().isEmpty()){
+                    throw new BusinessException("Empleado esta vacio");
+                }
+                //usuario
+                if (usuario.getUsuario().isEmpty()) {
                     throw new BusinessException("Nombre de Usuario esta vacio");
                 }
-                if (usuario.getNombre().length() < 3){
-                    throw new BusinessException("Ingrese un Nombre de Usuario con mas de 3 caracteres");
+                if (usuario.getUsuario().length() < 3) {
+                    throw new BusinessException("El Nombre de Usuario tiene que tener mas de 3 caracteres");
                 }
-                if (usuario.getNombre().length() > 25){
+                if (usuario.getUsuario().length() > 25) {
                     throw new BusinessException("Ingrese un Nombre de Usuario con menos de 25 caracteres");
                 }
                 //contraseña
@@ -170,7 +179,8 @@ public class UsuarioService implements IUsuarioService{
                 }
                 Usuario usuarioEx = new Usuario();
                 usuarioEx.setId(usuario.getId());
-                usuarioEx.setNombre(usuario.getNombre());
+                usuarioEx.setEmpleado(usuario.getEmpleado());
+                usuarioEx.setUsuario(usuario.getUsuario());
                 usuarioEx.setContraseña(usuario.getContraseña());
                 return repository.save(usuarioEx);
             }catch (Exception e1){
@@ -182,7 +192,7 @@ public class UsuarioService implements IUsuarioService{
         boolean condicion = false;
         try{
             for (Usuario usuario1:getUsuarios()) {
-                if (usuario.getNombre().equals(usuario1.getNombre())){
+                if (usuario.getUsuario().equals(usuario1.getUsuario())){
                     condicion = true;
                 }
             }
