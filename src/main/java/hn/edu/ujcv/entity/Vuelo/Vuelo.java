@@ -16,12 +16,12 @@ public class Vuelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Date fecha;
+    private String fecha;
     private String lugarPartida;
     private String horaP;
     private String destino;
     private String aerolinea;
-    private String TiempoE;
+    private String tiempoE;
     private String descripcion;
 
     //HH:mm:ss formato a usar, pasar a string.
@@ -32,10 +32,10 @@ public class Vuelo {
     public void setId(long id) {
         this.id = id;
     }
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
     public String getLugarPartida() {
@@ -63,10 +63,10 @@ public class Vuelo {
         this.aerolinea = aerolinea;
     }
     public String getTiempoE() {
-        return TiempoE;
+        return tiempoE;
     }
     public void setTiempoE(String tiempoE) {
-        TiempoE = tiempoE;
+        this.tiempoE = tiempoE;
     }
     public String getDescripcion() {
         return descripcion;

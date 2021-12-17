@@ -111,13 +111,13 @@ public class VueloService implements IVueloService {
                 }
                 //horadespegue
                 if (vuelo.getHoraP().isEmpty()) {
-                    throw new BusinessException("Hora de despegue está vacío.");
+                    throw new BusinessException("Hora Programada está vacío.");
                 }
-                if (vuelo.getHoraP() == "00:00") {
-                    throw new BusinessException("Hora de despegue invalida! Ingrese una hora correcta");
+                if (vuelo.getHoraP() == "00:00:00") {
+                    throw new BusinessException("Hora Programada invalida! Ingrese una hora correcta");
                 }
-                if (vuelo.getHoraP().length() != 5) {
-                    throw new BusinessException("Hora de despegue invalida! Ingrese el formato (00:00)");
+                if (vuelo.getHoraP().length() != 8) {
+                    throw new BusinessException("Hora Programada invalida! Ingrese el formato (00:00:00)");
                 }
                 //destino
                 if (vuelo.getDestino().isEmpty()) {
@@ -143,11 +143,11 @@ public class VueloService implements IVueloService {
                 if (vuelo.getTiempoE().isEmpty()) {
                     throw new BusinessException("El tiempo estimado está vacío.");
                 }
-                if (vuelo.getTiempoE() == "00:00") {
+                if (vuelo.getTiempoE() == "00:00:00") {
                     throw new BusinessException("Tiempo estimado invalida! Ingrese una hora correcta");
                 }
-                if (vuelo.getTiempoE().length() != 5) {
-                    throw new BusinessException("Tiempo estimado invalida! Ingrese el formato (00:00)");
+                if (vuelo.getTiempoE().length() != 8) {
+                    throw new BusinessException("Tiempo estimado invalida! Ingrese el formato (00:00:00)");
                 }
                 //descripcion
                 if (vuelo.getDescripcion().isEmpty()) {
@@ -194,7 +194,7 @@ public class VueloService implements IVueloService {
     public Vuelo getVueloByDestino(String destino) throws BusinessException, NotFoundException {
         Optional<Vuelo> opt = null;
         try {
-            opt = repository.findByDestino(destino);
+            opt = repository.findFirstByDestino(destino);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
@@ -257,13 +257,13 @@ public class VueloService implements IVueloService {
                 }
                 //horadespegue
                 if (vuelo.getHoraP().isEmpty()) {
-                    throw new BusinessException("Hora de despegue está vacío.");
+                    throw new BusinessException("Hora Programada está vacío.");
                 }
-                if (vuelo.getHoraP() == "00:00") {
-                    throw new BusinessException("Hora de despegue invalida! Ingrese una hora correcta");
+                if (vuelo.getHoraP() == "00:00:00") {
+                    throw new BusinessException("Hora Programada invalida! Ingrese una hora correcta");
                 }
-                if (vuelo.getHoraP().length() != 5) {
-                    throw new BusinessException("Hora de despegue invalida! Ingrese el formato (00:00)");
+                if (vuelo.getHoraP().length() != 8) {
+                    throw new BusinessException("Hora Programada invalida! Ingrese el formato (00:00:00)");
                 }
                 //destino
                 if (vuelo.getDestino().isEmpty()) {
@@ -289,11 +289,11 @@ public class VueloService implements IVueloService {
                 if (vuelo.getTiempoE().isEmpty()) {
                     throw new BusinessException("El tiempo estimado está vacío.");
                 }
-                if (vuelo.getTiempoE() == "00:00") {
+                if (vuelo.getTiempoE() == "00:00:00") {
                     throw new BusinessException("Tiempo estimado invalida! Ingrese una hora correcta");
                 }
-                if (vuelo.getTiempoE().length() != 5) {
-                    throw new BusinessException("Tiempo estimado invalida! Ingrese el formato (00:00)");
+                if (vuelo.getTiempoE().length() != 8) {
+                    throw new BusinessException("Tiempo estimado invalida! Ingrese el formato (00:00:00)");
                 }
                 //descripcion
                 if (vuelo.getDescripcion().isEmpty()) {

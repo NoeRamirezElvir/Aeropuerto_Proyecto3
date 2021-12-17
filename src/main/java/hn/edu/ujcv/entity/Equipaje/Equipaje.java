@@ -19,7 +19,7 @@ public class Equipaje {
     private long boleto;
     private String pasajero;
     private double peso;
-    private Date fechaRegistro;
+    private String fechaRegistro;
     private String destino;
     private String color;
     private String tamaño;

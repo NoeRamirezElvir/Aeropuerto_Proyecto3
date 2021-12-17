@@ -239,7 +239,7 @@ public class AerolineaService implements IAerolineaService{
     public Aerolinea getAerolineaByNombre(String nombre) throws BusinessException, NotFoundException {
         Optional<Aerolinea> opt = null;
         try{
-            opt = repository.findByNombre(nombre);
+            opt = repository.findFirstByNombre(nombre);
         }catch (Exception e){
             throw new BusinessException(e.getMessage());
         }

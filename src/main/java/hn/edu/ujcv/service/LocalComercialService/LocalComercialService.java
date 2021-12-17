@@ -92,6 +92,9 @@ public class LocalComercialService implements ILocalComercialService{
             if(String.valueOf(localComercial.getFechaIngreso()).isEmpty()){
                 throw new BusinessException("La fecha está vacía.");
             }
+            if(localComercial.getFechaIngreso().length() != 10){
+                throw new BusinessException("Fecha incorrecta.");
+            }
             return repository.save(localComercial);
         }catch (Exception e){
            throw new BusinessException(e.getMessage());
